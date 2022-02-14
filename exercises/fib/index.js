@@ -8,6 +8,55 @@
 // Example:
 //   fib(4) === 3
 
-function fib(n) {}
+// stephens recursive solution
+const fib = memoize(slowFib);
+
+function slowFib(n) {
+  if (n < 2) {
+    return n;
+  }
+
+  return fib(n - 1) + fib(n - 2);
+}
+
+function memoize(fn) {
+  const cache = {};
+  return function (...args) {
+    if (cache[args]) {
+      return cache[args];
+    }
+
+    const result = fn.apply(this, args);
+    cache[args] = result;
+    return result;
+  };
+}
+// my recursive solution
+// function fib(n, sequence = [0, 1]) {
+//   if (n + 1 === sequence.length) {
+//     return sequence[n];
+//   }
+
+//   const a = sequence[sequence.length - 1];
+//   const b = sequence[sequence.length - 2];
+
+//   sequence.push(a + b);
+
+//   return fib(n, sequence);
+// }
+
+// my iterative solution
+// function fib(n) {
+//   let sequence = [0, 1];
+//   return n > 1 ? getFib(sequence, n)[n] : sequence[n];
+// }
+
+// function getFib(sequence, n) {
+//   let arr = sequence;
+//   for (i = 2; i <= n; i++) {
+//     arr[i] = arr[i - 1] + arr[i - 2];
+//   }
+//   return arr;
+// }
 
 module.exports = fib;
